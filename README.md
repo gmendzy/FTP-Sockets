@@ -29,7 +29,7 @@ This is a basic implementation of a File Transfer Protocol (FTP) server and clie
     python3 server_final.py
 * The server listens for incoming connections on port 8080 by default. You can change this port as needed.
 # Client
-* Run the FTP client by executing client_final.py.
+    python3 client_final.py
 * You can use commands like put, get, ls, and quit to interact with the server.
 * When using put or get, the client will prompt you for a filename.
 
