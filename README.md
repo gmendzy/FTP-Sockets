@@ -22,14 +22,12 @@ This is a basic implementation of a File Transfer Protocol (FTP) server and clie
 * After the file transfer is complete, the data connection is closed.
 
 #  Server
-* Run the FTP server by executing server.py.
+* Run the FTP server by executing server_final.py.
 * The server listens for incoming connections on port 8080 by default. You can change this port as needed.
 # Client
-* Run the FTP client by executing client.py.
+* Run the FTP client by executing client_final.py.
 * You can use commands like put, get, ls, and quit to interact with the server.
 * When using put or get, the client will prompt you for a filename.
-# Configuration
-* settings based on your requirements.
 
 # Dependencies
 This implementation uses Python's built-in socket, os, threading, and enum modules. No external libraries are required.
