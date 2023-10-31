@@ -1,4 +1,4 @@
-# Simple FTP Server and Client using TCP
+## Simple FTP Server and Client using TCP
 This is a basic implementation of a File Transfer Protocol (FTP) server and client using the Transmission Control Protocol (TCP). The server and client are designed to run on the same machine and allow you to upload (put) and download (get) files to and from the server.
 
 # How it Works
