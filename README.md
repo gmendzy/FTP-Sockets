@@ -20,7 +20,7 @@ This is a basic implementation of a File Transfer Protocol (FTP) server and clie
 * When a put or get command is issued, the server responds with an ephemeral port number for the data connection.
 * The client then establishes a data connection with the server on the provided ephemeral port for file transfer.
 * After the file transfer is complete, the data connection is closed.
-*Usage
+
 #  Server
 * Run the FTP server by executing server.py.
 * The server listens for incoming connections on port 8080 by default. You can change this port as needed.
