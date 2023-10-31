@@ -26,7 +26,8 @@ This is a basic implementation of a File Transfer Protocol (FTP) server and clie
 * After the file transfer is complete, the data connection is closed.
 
 #  Server
-    ** python3 server_final.py
+* Execute:
+     python3 server_final.py
 * The server listens for incoming connections on port 8080 by default. You can change this port as needed.
 # Client
 * Run the FTP client by executing client_final.py.
