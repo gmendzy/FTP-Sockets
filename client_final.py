@@ -1,5 +1,4 @@
 import socket
-import threading
 from enum import Enum
 
 
@@ -59,6 +58,7 @@ class FtpClient:
             data_socket.close()
         print("File sent successfully.")
 
+    
     def perform_get(self, data_socket):
         with open("new_file", 'w') as file:
             data = data_socket.recv(1024)
@@ -68,6 +68,7 @@ class FtpClient:
             data_socket.close()
         print("File received successfully.")
 
+    
     def perform_ls(self, data_socket):
         directory_list = data_socket.recv(1024).decode()
         print("Directory List: ")

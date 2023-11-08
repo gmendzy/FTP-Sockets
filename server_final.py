@@ -26,7 +26,7 @@ class FtpServerControlInterface:
     def __init__(self, control_socket):
         self.control_socket = control_socket
 
-    def handle_commands(self, address):
+    def handle_commands(self, address: str):
         while True:
             command = self.control_socket.recv(1024).decode()
             if not command:
@@ -75,7 +75,7 @@ class FtpServerControlInterface:
     def get(self, data_socket, filename):
         full_path = os.path.join(os.getcwd(), filename)
         if os.path.isfile(full_path):
-            with open("sent_file.txt", 'r') as file:
+            with open(filename, 'r') as file:
                 data = file.read(1024)
                 while data:
                     data_socket.send(data)
