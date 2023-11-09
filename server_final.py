@@ -36,10 +36,7 @@ class FtpServer:
                 if not ongoing_thread.is_alive():
                     ongoing_thread.join()
 
-            # client_control_interface = FtpServerControlInterface(client_socket, self)
-
-            # client_thread = threading.Thread(target=client_control_interface.handle_commands, args=(address,)) #creates a thread that executes client_control_interface.handle_commands, multiple client connections can be handled concurrently.
-            # client_thread.start()
+    
 
 
 class FtpServerControlInterface:
@@ -63,7 +60,9 @@ class FtpServerControlInterface:
             if command.startswith("get"):
                 filename = command.split()[1]
                 data_socket = self.data_connection()
+                print("Listening...")
                 data_socket, _ = data_socket.accept()
+                print("Connected")
                 self.get(data_socket, filename)
             if command.startswith("ls"):
                 data_socket = self.data_connection()
@@ -84,7 +83,7 @@ class FtpServerControlInterface:
     
     def put(self, data_socket):
         print("Handling put...")
-        with open("received.txt", 'wb') as file:
+        with open("uploaded.txt", 'wb') as file:
             data = data_socket.recv(1024)
             while True:
                 if not data:
@@ -96,12 +95,13 @@ class FtpServerControlInterface:
         print("File received successfully.")
     
     def get(self, data_socket, filename):
+        print("Handling get...")
         full_path = os.path.join(os.getcwd(), filename)
         if os.path.isfile(full_path):
             with open(filename, 'rb') as file:
                 data = file.read(1024)
                 while data:
-                    data_socket.send(1024)
+                    data_socket.send(data)
                     data = file.read(1024)
             data_socket.close()
         print("File sent successfully.")

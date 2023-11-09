@@ -1,8 +1,18 @@
 #!/bin/bash
+
+# Setup
 kill $(pgrep -f server_final.py)
-rm received.txt
+rm uploaded.txt
+rm downloaded.txt
+
+# Run server in background
 ./server_final.py &
-server_pid=$!
+
+# Allow time for server to create listening server
 sleep 3
-printf "put test.txt\nls" | ./client_final.py
+
+# Run basic FTP client operations
+printf "put test.txt\nls\nget test.txt" | ./client_final.py
+
+# Teardown
 kill $(pgrep -f server_final.py)
