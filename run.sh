@@ -16,3 +16,4 @@ printf "put test.txt\nls\nget test.txt" | ./client_final.py
 
 # Teardown
 kill $(pgrep -f server_final.py)
+

@@ -82,17 +82,17 @@ class FtpServerControlInterface:
         return data_socket
     
     def put(self, data_socket):
-        print("Handling put...")
+        print("Server: Handling put...")
         with open("uploaded.txt", 'wb') as file:
             data = data_socket.recv(1024)
             while True:
                 if not data:
                     break
-                print(f"Received {len(data)}")
+                print(f"Server: Received {len(data)} bytes of data.")
                 file.write(data)
                 data = data_socket.recv(1024)
             data_socket.close()
-        print("File received successfully.")
+        print("Server: File received successfully.")
     
     def get(self, data_socket, filename):
         print("Handling get...")
@@ -104,7 +104,7 @@ class FtpServerControlInterface:
                     data_socket.send(data)
                     data = file.read(1024)
             data_socket.close()
-        print("File sent successfully.")
+        print("Server: File sent successfully.")
 
 
     def ls(self, data_socket):

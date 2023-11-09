@@ -56,27 +56,28 @@ class FtpClient:
 
      
     def perform_put(self, data_socket, filename):
-        print(f"Sending {filename}")
+        print(f"Client: Sending {filename}")
         with open(filename, 'rb') as file:
             data = file.read(1024)
             while True:
                 if not data:
                     break
-                print(f"Sending {len(data)}")
+                print(f"Client: Sending {len(data)} bytes of data.")
                 data_socket.send(data)
                 data = file.read(1024)
             data_socket.close()
-        print("File sent successfully.")
+        print("Client: File sent successfully.")
 
 
 
     
     def perform_get(self, data_socket):
-        print(f"Receiving file...")
+        print(f"Client: Receiving file...")
         with open("downloaded.txt", 'wb') as file:
             data = data_socket.recv(1024)
             while data:
                 file.write(data)
+                print(f"Client: Received {len(data)} bytes of data.")
                 data = data_socket.recv(1024)
                 print("File received successfully.")
             data_socket.close()
