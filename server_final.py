@@ -91,11 +91,12 @@ class FtpServerControlInterface:
                 print(f"Server: Received {len(data)} bytes of data.")
                 file.write(data)
                 data = data_socket.recv(1024)
+                print("Server: File received successfully.")
             data_socket.close()
-        print("Server: File received successfully.")
+
     
     def get(self, data_socket, filename):
-        print("Handling get...")
+        print("Server: Handling get...")
         full_path = os.path.join(os.getcwd(), filename)
         if os.path.isfile(full_path):
             with open(filename, 'rb') as file:

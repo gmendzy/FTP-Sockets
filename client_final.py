@@ -65,8 +65,9 @@ class FtpClient:
                 print(f"Client: Sending {len(data)} bytes of data.")
                 data_socket.send(data)
                 data = file.read(1024)
+                print("Client: File sent successfully.")
             data_socket.close()
-        print("Client: File sent successfully.")
+  
 
 
 
@@ -79,7 +80,7 @@ class FtpClient:
                 file.write(data)
                 print(f"Client: Received {len(data)} bytes of data.")
                 data = data_socket.recv(1024)
-                print("File received successfully.")
+                print("Client: File received successfully.")
             data_socket.close()
         
 
