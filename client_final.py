@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import socket
 from enum import Enum
 
@@ -15,29 +16,40 @@ class FtpClient:
 
     
     def start(self):
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect((self.addr, self.port))
-        
         while True:
-            command = input("ftp> ")
-            client_socket.send(command.encode())
-            if command == "quit":
+            try:
+                command = input("ftp> ")
+                print(f"Client: Received command [{command}]")
+            except EOFError:
+                break
+            if command == "quit" or not command:
                 break
 
-            if command.startswith(FtpServerCommand.PUT.value) or \
-               command.startswith(FtpServerCommand.GET.value): 
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect((self.addr, self.port))
+            client_socket.send(command.encode())
+            
+            if command.startswith(FtpServerCommand.PUT.value):
+                filename = command.split()[1]
                 self.data_port = int(client_socket.recv(1024).decode())
                 data_socket = self.data_connection()
-                filename = command.split()[1]
+                self.perform_put(data_socket, filename)
+
+            # if command.startswith(FtpServerCommand.PUT.value) or \
+            #    command.startswith(FtpServerCommand.GET.value): 
+            #     self.data_port = int(client_socket.recv(1024).decode())
+            #     data_socket = self.data_connection()
+            #     filename = command.split()[1]
             if command.startswith(FtpServerCommand.LS.value):
                 self.data_port = int(client_socket.recv(1024).decode())
                 data_socket = self.data_connection()
-                if command.startswith(FtpServerCommand.PUT.value):
-                    self.perform_put(data_socket, filename)
-                elif command.startswith(FtpServerCommand.GET.value):
-                    self.perform_get(data_socket, filename)
-                elif command.startswith(FtpServerCommand.LS.value):
-                    self.perform_ls(data_socket)
+                self.perform_ls(data_socket)
+            #     if command.startswith(FtpServerCommand.PUT.value):
+            #         self.perform_put(data_socket, filename)
+            #     elif command.startswith(FtpServerCommand.GET.value):
+            #         self.perform_get(data_socket, filename)
+                # elif command.startswith(FtpServerCommand.LS.value):
+            
 
         
         client_socket.close()
@@ -50,23 +62,30 @@ class FtpClient:
 
      
     def perform_put(self, data_socket, filename):
-        with open(filename, 'r') as file:
+        print(f"Sending {filename}")
+        with open(filename, 'rb') as file:
             data = file.read(1024)
-            while data:
+            while True:
+                if not data:
+                    break
+                print(f"Sending {len(data)}")
                 data_socket.send(data)
                 data = file.read(1024)
             data_socket.close()
         print("File sent successfully.")
 
+
+
     
     def perform_get(self, data_socket):
-        with open("new_file", 'w') as file:
+        with open("new_file", 'wb') as file:
             data = data_socket.recv(1024)
             while data:
                 file.write(data)
                 data = data_socket.recv(1024)
+                print("File received successfully.")
             data_socket.close()
-        print("File received successfully.")
+        
 
     
     def perform_ls(self, data_socket):
