@@ -1,5 +1,5 @@
 # Group Members:
-* Geoff Mendoza
+* Geoff Mendoza : mendoza.geoff@csu.fullerton.edu
 * Wesley Zoroya
 
 ## Simple FTP Server and Client using TCP Sockets
