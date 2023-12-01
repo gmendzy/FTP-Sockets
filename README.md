@@ -1,6 +1,9 @@
 # Group Members:
 * Geoff Mendoza : mendoza.geoff@csu.fullerton.edu
-* Wesley Zoroya
+* Wesley Zoroya : wzoroya@csu.fullerton.edu
+
+## Demo
+https://asciinema.org/a/Ki0y4Ut7voVLlIaVCf71BSvUz
 
 ## Simple FTP Server and Client using TCP Sockets
 This is a basic implementation of a File Transfer Protocol (FTP) server and client using the Transmission Control Protocol (TCP). The server and client are designed to run on the same machine and allow you to upload (put) and download (get) files to and from the server.
